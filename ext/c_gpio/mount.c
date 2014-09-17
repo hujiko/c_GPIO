@@ -24,6 +24,10 @@ void pi_io_writeToMountFile(char *fileName, int content) {
 
 void pi_io_mountPin(int pinNumber) {
   pi_io_writeToMountFile((char*)"/sys/class/gpio/export", pinNumber);
+
+  // We need to sleep here, because the OS needs some time
+  // to mount the GPIO pin for us
+  usleep(20 * 1000);
 }
 
 void pi_io_unmountPin(int pinNumber) {
