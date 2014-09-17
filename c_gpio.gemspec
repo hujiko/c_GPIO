@@ -1,4 +1,4 @@
-Gem::Specification.new "c_gpio", "0.0.1" do |s|
+Gem::Specification.new "c_gpio", "0.0.2" do |s|
   # [...]
 
   s.author      = ['hujiko']
