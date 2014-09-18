@@ -37,17 +37,20 @@ void Init_gpio(void) {
 
   GPIO_BASE = rb_define_class_under(GPIO_MODULE, "Base", rb_cObject);
   rb_define_alloc_func(GPIO_BASE, GPIO_allocate);
-  rb_define_method(GPIO_BASE, "initialize", GPIO_BASE_init,          1);
-  rb_define_method(GPIO_BASE, "value",      GPIO_BASE_get_value,     0);
-  rb_define_method(GPIO_BASE, "value=",     GPIO_BASE_set_value,     1);
-  rb_define_method(GPIO_BASE, "direction",  GPIO_BASE_get_direction, 0);
-  rb_define_method(GPIO_BASE, "direction=", GPIO_BASE_set_direction, 1);
+  rb_define_method(GPIO_BASE, "initialize",    GPIO_BASE_init,          1);
+  rb_define_method(GPIO_BASE, "value",         GPIO_BASE_get_value,     0);
+  rb_define_method(GPIO_BASE, "value=",        GPIO_BASE_set_value,     1);
+  rb_define_method(GPIO_BASE, "direction",     GPIO_BASE_get_direction, 0);
+  rb_define_method(GPIO_BASE, "direction=",    GPIO_BASE_set_direction, 1);
+  rb_define_method(GPIO_BASE, "wait_for_high", GPIO_BASE_wait_for_high, 1);
+  rb_define_method(GPIO_BASE, "wait_for_low",  GPIO_BASE_wait_for_low,  1);
 
 
   GPIO_BUTTON = rb_define_class_under(GPIO_MODULE, "Button", rb_cObject);
   rb_define_alloc_func(GPIO_BUTTON, GPIO_allocate);
   rb_define_method(GPIO_BUTTON, "initialize",           GPIO_BUTTON_init,                  1);
   rb_define_method(GPIO_BUTTON, "pressed?",             GPIO_BUTTON_is_pressed,            0);
-  rb_define_method(GPIO_BUTTON, "add_keydown_callback", GPIO_BUTTON_add_key_down_callback, 0);
-  rb_define_method(GPIO_BUTTON, "add_keyup_callback",   GPIO_BUTTON_add_key_up_callback,   0);
+  // Yes e want to delegate to the GPIO_BASE here
+  rb_define_method(GPIO_BUTTON, "wait_for_high",        GPIO_BASE_wait_for_high,           1);
+  rb_define_method(GPIO_BUTTON, "wait_for_low",         GPIO_BASE_wait_for_low,            1);
 }

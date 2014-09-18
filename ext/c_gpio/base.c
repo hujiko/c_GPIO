@@ -72,3 +72,51 @@ VALUE GPIO_BASE_set_direction(VALUE self, VALUE direction) {
 
   return self;
 }
+
+VALUE GPIO_BASE_wait_for_low(VALUE self, VALUE block) {
+  struct GPIO *gpio;
+  char oldVal[20] = "1";
+  char newVal[20] = "1";
+
+  Data_Get_Struct(self, struct GPIO, gpio);
+
+  while(1) {
+    rb_thread_schedule();
+
+    GPIO_INTERNAL_get_value(gpio->port, (char *) &newVal);
+
+    if (strcmp(oldVal, newVal) != 0 && strcmp(newVal, "0") == 0) {
+      rb_funcall(block, rb_intern("call"), 0);
+    }
+
+    strcpy(oldVal, newVal);
+
+    usleep(10 * 1000);
+  }
+
+  return self;
+}
+
+VALUE GPIO_BASE_wait_for_high(VALUE self, VALUE block) {
+  struct GPIO *gpio;
+  char oldVal[20] = "1";
+  char newVal[20] = "1";
+
+  Data_Get_Struct(self, struct GPIO, gpio);
+
+  while(1) {
+    rb_thread_schedule();
+
+    GPIO_INTERNAL_get_value(gpio->port, (char *) &newVal);
+
+    if (strcmp(oldVal, newVal) != 0 && strcmp(newVal, "1") == 0) {
+      rb_funcall(block, rb_intern("call"), 0);
+    }
+
+    strcpy(oldVal, newVal);
+
+    usleep(10 * 1000);
+  }
+
+  return self;
+}

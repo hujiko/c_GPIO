@@ -8,9 +8,6 @@
 #include "internal.h"
 #include "file_stuff.h"
 
-#include <pthread.h>
-
-
 VALUE GPIO_BUTTON_init(VALUE self, VALUE port) {
   struct GPIO *ptr;
   int gpio_port = NUM2INT(port);

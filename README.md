@@ -41,7 +41,18 @@ Here you will find various examples for this gem.
       puts "The button is currently pressed"
     }
 
-#### Using the Base Class for reading custom parts
+    # If you want to get notified, once a button is pressed or released,
+    # You can easily use one (or both) of the following callbacks
+
+    button.on_press do
+        puts "You pressed da button"
+    end
+
+    button.on_release do
+        puts "ou stopped pressing the button"
+    end
+
+#### Using the Base class for reading custom parts
 
     require 'c_gpio'
     
@@ -51,7 +62,7 @@ Here you will find various examples for this gem.
     
     p io.value # will print "1" or "0" depending on what you connected
     
-#### Using the Base Class for writing custom parts
+#### Using the Base class for writing custom parts
 
     require 'c_gpio'
     
@@ -63,6 +74,26 @@ Here you will find various examples for this gem.
     
     io.value = "0" # will power the connected part off
 
+#### Using callbacks of the Base class
+
+Those callbacks can be used for both directions, "IN" and "OUT".
+Using them you can observe, if your peripheral device changed the signal from HIGH to LOW or from LOW to HIGH.
+If the direction is set to "OUT", you also can observe, if someone is changing the outgoing signal.
+
+    require 'c_gpio'
+
+    io = GPIO::Base.new(2) # We want to write to PIN 2
+
+    io.direction = "in"
+
+    io.on_high do
+        puts "signal changed to HIGH"
+    end
+
+    io.on_low do
+        puts "signal changed to low"
+    end
+
 
 
 License
@@ -72,3 +103,11 @@ MIT
 
 
 **Free Software, Hell Yeah!**
+
+Finally
+----
+
+I wrote this as my fist c program and my first c extension.
+I have to Idea if this code is looking pretty or optimized.
+
+But I am open to everyone who wants to give feedback or collaborate in this.

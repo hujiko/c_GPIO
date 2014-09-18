@@ -17,3 +17,5 @@ VALUE GPIO_BASE_get_value(VALUE self);
 VALUE GPIO_BASE_set_value(VALUE self, VALUE value);
 VALUE GPIO_BASE_get_direction(VALUE self);
 VALUE GPIO_BASE_set_direction(VALUE self, VALUE direction);
+VALUE GPIO_BASE_wait_for_high(VALUE self, VALUE block);
+VALUE GPIO_BASE_wait_for_low(VALUE self, VALUE block);
