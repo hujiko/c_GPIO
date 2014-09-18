@@ -25,9 +25,24 @@ void pi_io_writeToMountFile(char *fileName, int content) {
 void pi_io_mountPin(int pinNumber) {
   pi_io_writeToMountFile((char*)"/sys/class/gpio/export", pinNumber);
 
-  // We need to sleep here, because the OS needs some time
-  // to mount the GPIO pin for us
-  usleep(20 * 1000);
+  char mountedPinDirection[40];
+
+  sprintf(mountedPinDirection, "/sys/class/gpio/gpio%d/direction", pinNumber);
+
+  int i;
+  for (i = 0; i < 10; i++) {
+    if( access( mountedPinDirection, W_OK ) != -1 ) {
+      // The pin is mounted, so we can return
+      return;
+    } else {
+      // The pin seems to be not mounted yet.
+      // so we wait 20ms and check again
+      usleep(20 * 1000);
+    }
+  }
+
+  // If we reach this part, mounting in time was not possible
+  rb_raise(rb_eSystemCallError, "Was not able to mount GPIO pin");
 }
 
 void pi_io_unmountPin(int pinNumber) {

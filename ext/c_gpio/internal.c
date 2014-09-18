@@ -4,7 +4,7 @@
 #endif
 
 #include "file_stuff.h"
-#define FILE_NAME_BUFFER_SIZE 30
+#define FILE_NAME_BUFFER_SIZE 50
 
 void GPIO_INTERNAL_get_value(int pinNumber, char *dst) {
   char filename[FILE_NAME_BUFFER_SIZE];
