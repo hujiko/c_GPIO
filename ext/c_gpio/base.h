@@ -3,12 +3,13 @@
 
 struct GPIO {
   int port;
-  VALUE onLowCallback;
-  VALUE onHighCallback;
-  pthread_t watchThread;
-  int threadRunning;
   void *ptr;
 };
+
+extern const char *GPIO_IN;
+extern const char *GPIO_OUT;
+extern const char *GPIO_HIGH;
+extern const char *GPIO_LOW;
 
 #endif
 

@@ -6,6 +6,13 @@
 #include "file_stuff.h"
 #define FILE_NAME_BUFFER_SIZE 50
 
+void GPIO_INTERNAL_validate_pin(int pinNumber) {
+  // Currently the rPI does only have GPIO Pins  from 2 to 27
+  if(pinNumber < 2 || pinNumber > 27) {
+    rb_raise(rb_eArgError, "The GPIO Port has to be between 2 and 27");
+  }
+}
+
 void GPIO_INTERNAL_get_value(int pinNumber, char *dst) {
   char filename[FILE_NAME_BUFFER_SIZE];
 

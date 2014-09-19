@@ -20,21 +20,21 @@ Here you will find various examples for this gem.
 #### Turning a LED on and off
 
     require 'c_gpio'
-    
+
     led = GPIO::Led.new(2) # Initialize a LED connected to PIN 2
-    
+
     led.turn_on! # Turn on the LED
-    
+
     sleep(1) # Wait a second
-    
+
     led.turn_off! # Turn off the LED
-    
+
 #### Connect a button to GPIO
 
     require 'c_gpio'
-    
+
     button = GPIO::Button.new(2) # Initialize a button connected to PIN 2
-    
+
     # pressed? will return true, if the button is being pressed,
     # otherwise it will return false
     if(button.pressed?) {
@@ -55,24 +55,24 @@ Here you will find various examples for this gem.
 #### Using the Base class for reading custom parts
 
     require 'c_gpio'
-    
+
     io = GPIO::Base.new(2) # We want to read from PIN 2
-    
-    io.direction = "in" # Setting the direction to "in", so we can read
-    
-    p io.value # will print "1" or "0" depending on what you connected
-    
+
+    io.direction = :in # Setting the direction to "in", so we can read
+
+    io.value # will return :high or :low depending on what your sensor says
+
 #### Using the Base class for writing custom parts
 
     require 'c_gpio'
-    
+
     io = GPIO::Base.new(2) # We want to write to PIN 2
-    
-    io.direction = "out" # Setting the direction to "out", so we can write
-    
-    io.value = "1" # will power the connected part on
-    
-    io.value = "0" # will power the connected part off
+
+    io.direction = :out # Setting the direction to "out", so we can write
+
+    io.value = :high # will power the connected part on
+
+    io.value = :low # will power the connected part off
 
 #### Using callbacks of the Base class
 
@@ -84,7 +84,7 @@ If the direction is set to "OUT", you also can observe, if someone is changing t
 
     io = GPIO::Base.new(2) # We want to write to PIN 2
 
-    io.direction = "in"
+    io.direction = :in
 
     io.on_high do
         puts "signal changed to HIGH"
