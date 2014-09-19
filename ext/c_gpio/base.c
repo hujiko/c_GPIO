@@ -45,8 +45,6 @@ VALUE GPIO_BASE_get_value(VALUE self) {
   }
 
   rb_raise(rb_eRuntimeError, "Value was neither HIGH nor LOW");
-
-  return NULL;
 }
 
 VALUE GPIO_BASE_set_value(VALUE self, VALUE value) {
@@ -82,8 +80,6 @@ VALUE GPIO_BASE_get_direction(VALUE self) {
   }
 
   rb_raise(rb_eRuntimeError, "Direction was neither IN nor OUT");
-
-  return NULL;
 }
 
 VALUE GPIO_BASE_set_direction(VALUE self, VALUE direction) {

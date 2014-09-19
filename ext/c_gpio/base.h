@@ -3,6 +3,7 @@
 
 struct GPIO {
   int port;
+  int pwmPosition;
   void *ptr;
 };
 

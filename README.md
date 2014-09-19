@@ -52,6 +52,27 @@ Here you will find various examples for this gem.
         puts "ou stopped pressing the button"
     end
 
+#### Controlling a PWM Engine
+
+Please note that this is experimental. This gem will create a PWM signal using the CPU which might not be that accurate.
+You can still try it and you are welcome to have a look at the implementation if. Give feedback an collaborate in optimizing it.
+
+    require 'c_gpio'
+
+    stepper = GPIO::Pwm.new(2) # Initialize a stepping motor connected to PIN 2
+
+    # Move the stepper to the one side (0 is the lowest value you can submit)
+    stepper.move_to(0)
+
+    # Move the stepper to the middle position
+    stepper.move_to(100)
+
+    # Move the stepper to the other side (200 is the highest value you can submit)
+    stepper.move_to(200)
+
+Because of the CPU of a PI being unprecise, this class stopps sending a PWM signal after ~1400ms.
+Your stepper will have to reach it's final position after this time. I decided to stop the PWM signal after 1400ms because otherwise, the stepper will start jittering. The reason for this that generating a PWM signal from the CPU is not that accurate as from an arduino. If you know a more precise implementation of PWM signals, feel free to contact me.
+
 #### Using the Base class for reading custom parts
 
     require 'c_gpio'

@@ -4,6 +4,7 @@
 #include "led.h"
 #include "button.h"
 #include "base.h"
+#include "pwm.h"
 #include "file_stuff.h"
 
 
@@ -23,10 +24,9 @@ VALUE GPIO_allocate(VALUE self) {
 
 //Ruby-Einstiegsmethode. Sie muss immer mit Init_ beginnen und auf den Namen der Extension enden. 
 void Init_gpio(void) {
-  VALUE GPIO_MODULE, GPIO_LED, GPIO_BASE, GPIO_BUTTON;
+  VALUE GPIO_MODULE, GPIO_PWM, GPIO_LED, GPIO_BASE, GPIO_BUTTON;
 
   GPIO_MODULE = rb_const_get(rb_cObject, rb_intern("GPIO"));
-
 
   GPIO_LED = rb_define_class_under(GPIO_MODULE, "Led", rb_cObject);
   rb_define_alloc_func(GPIO_LED, GPIO_allocate);
@@ -53,4 +53,9 @@ void Init_gpio(void) {
   // Yes e want to delegate to the GPIO_BASE here
   rb_define_method(GPIO_BUTTON, "wait_for_high",        GPIO_BASE_wait_for_high,           1);
   rb_define_method(GPIO_BUTTON, "wait_for_low",         GPIO_BASE_wait_for_low,            1);
+
+  GPIO_PWM = rb_define_class_under(GPIO_MODULE, "Pwm", rb_cObject);
+  rb_define_alloc_func(GPIO_PWM, GPIO_allocate);
+  rb_define_method(GPIO_PWM, "initialize", GPIO_PWM_init,     1);
+  rb_define_method(GPIO_PWM, "move_to",    GPIO_PWM_position, 1);
 }
