@@ -1,5 +1,5 @@
 module GPIO
-  VERSION = '0.0.4'
+  VERSION = '0.0.5'
 end
 
 require 'c_gpio/gpio'
