@@ -1,4 +1,4 @@
-Gem::Specification.new "c_gpio", "0.0.6" do |s|
+Gem::Specification.new "c_gpio", "0.0.7" do |s|
   # [...]
 
   s.author       = ['hujiko']
@@ -6,7 +6,7 @@ Gem::Specification.new "c_gpio", "0.0.6" do |s|
   s.summary      = "Ruby gem to control GPIO ports of a raspberry PI"
   s.description  = "Ruby gem to control GPIO ports of a raspberry PI"
   s.licenses     = ['MIT']
-  s.files        = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "lib/**/*"]
+  s.files        = Dir["CHANGELOG.md", "MIT-LICENSE", "README.md", "ext/**/*", "lib/**/*"]
   s.require_path = "lib"
 
   s.extensions = %w[ext/c_gpio/extconf.rb]
